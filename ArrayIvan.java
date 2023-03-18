@@ -1,3 +1,5 @@
+
+
 public class ArrayIvan<T> {
     private static final int startSize = 1;
     private T[] array;
@@ -6,11 +8,12 @@ public class ArrayIvan<T> {
     public ArrayIvan() {
         this.size = 0;
         this.array = (T[]) new Object[startSize];
+        // this.array = (T[]) Array.newInstance(getClass(), this.startSize);
     }
     
     public ArrayIvan(T[] array) {
-        this.size = array.length;
         this.array = array;
+        this.size = array.length;
     }
 
     public void add(T element) {
@@ -21,7 +24,7 @@ public class ArrayIvan<T> {
     }
 
     private void addLength() {
-        int newLen = this.array.length + 8;
+        int newLen = this.array.length + 1;
         T[] newArr = (T[]) new Object[newLen];
 
         for (int i = 0; i < this.array.length; i++) {
@@ -43,7 +46,7 @@ public class ArrayIvan<T> {
                 i++;
             }
             i++;
-            while (i < this.size) {
+            while (i < this.size - 1) {
                 newArr[i] = this.array[i];
                 i++;
             }
@@ -85,7 +88,7 @@ public class ArrayIvan<T> {
         T[] newArr = (T[]) new Object[newLen];
         int index = 0;
 
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i < this.size - 1; i++) {
             if (this.array[i] != null) {
                 newArr[index] = this.array[i];
                 index++;
@@ -104,11 +107,11 @@ public class ArrayIvan<T> {
      * null - if not types of theese
      */
     private Integer checkType() {
-        if (this.array instanceof String[]) {
+        if (this.array[0] instanceof String) {
             return 0;
-        } else if (this.array instanceof Integer[]) {
+        } else if (this.array[0] instanceof Integer) {
             return 1;
-        } else if (this.array instanceof Double[]) {
+        } else if (this.array[0] instanceof Double) {
             return 2;
         }
         return null;
@@ -141,10 +144,10 @@ public class ArrayIvan<T> {
         String min = (String) this.array[0];
         int countMin = min.length();
 
-        for (String str : (String[]) this.array) {
-            if (str != null && countMin > str.length()) {
-                countMin = str.length();
-                min = str;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null && countMin > ((String) this.array[i]).length()) {
+                countMin = ((String) this.array[i]).length();
+                min = (String) this.array[i];
             }
         }
         return (T) min;
@@ -158,9 +161,9 @@ public class ArrayIvan<T> {
     private T minInteger() {
         Integer min = (Integer) this.array[0];
 
-        for (Integer num : (Integer[]) this.array) {
-            if (num != null && min > num) {
-                min = num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null && min > (Integer) this.array[i]) {
+                min = (Integer) this.array[i];
             }
         }
 
@@ -175,9 +178,9 @@ public class ArrayIvan<T> {
     private T minDouble() {
         Double min = (Double) this.array[0];
 
-        for (Double num : (Double[]) this.array) {
-            if (num != null && min > num) {
-                min = num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null && min > (Double) this.array[i]) {
+                min = (Double) this.array[i];
             }
         }
 
@@ -212,10 +215,10 @@ public class ArrayIvan<T> {
         String max = (String) this.array[0];
         int countMax = max.length();
 
-        for (String str : (String[]) this.array) {
-            if (str != null && countMax < str.length()) {
-                countMax = str.length();
-                max = str;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null && countMax < ((String) this.array[i]).length()) {
+                countMax = ((String) this.array[i]).length();
+                max = (String) this.array[i];
             }
         }
         return (T) max;
@@ -229,9 +232,9 @@ public class ArrayIvan<T> {
     private T maxInteger() {
         Integer max = (Integer) this.array[0];
 
-        for (Integer num : (Integer[]) this.array) {
-            if (num != null && max < num) {
-                max = num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null && max < (Integer) this.array[i]) {
+                max = (Integer) this.array[i];
             }
         }
 
@@ -246,9 +249,9 @@ public class ArrayIvan<T> {
     private T maxDouble() {
         Double max = (Double) this.array[0];
 
-        for (Double num : (Double[]) this.array) {
-            if (num != null && max < num) {
-                max = num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null && max < (Double) this.array[i]) {
+                max = (Double) this.array[i];
             }
         }
 
@@ -290,13 +293,13 @@ public class ArrayIvan<T> {
     private T sumString() {
         StringBuilder sum = new StringBuilder();
 
-        for (StringBuilder str : (StringBuilder[]) this.array) {
-            if (str != null) {
-                sum.append(str);
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null) {
+                sum.append(this.array[i]);
                 sum.append(" ");
             }
         }
-        return (T) sum;
+        return (T) sum.toString();
     }
     
     /**
@@ -307,13 +310,13 @@ public class ArrayIvan<T> {
     private T sumString(String sep) {
         StringBuilder sum = new StringBuilder();
 
-        for (StringBuilder str : (StringBuilder[]) this.array) {
-            if (str != null) {
-                sum.append(str);
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null) {
+                sum.append(this.array[i]);
                 sum.append(sep);
             }
         }
-        return (T) sum;
+        return (T) sum.toString();
     }
 
     /**
@@ -324,9 +327,9 @@ public class ArrayIvan<T> {
     private T sumInteger() {
         Integer sum = 0;
         
-        for (Integer num : (Integer[]) this.array) {
-            if (num != null) {
-                sum += num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null) {
+                sum += (Integer) this.array[i];
             }
         }
 
@@ -341,9 +344,9 @@ public class ArrayIvan<T> {
     private T sumDouble() {
         Double sum = 0.0;
 
-        for (Double num : (Double[]) this.array) {
-            if (num != null) {
-                sum += num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null) {
+                sum += (Double) this.array[i];
             }
         }
 
@@ -378,9 +381,9 @@ public class ArrayIvan<T> {
     private T multInteger() {
         Integer mult = 1;
 
-        for (Integer num : (Integer[]) this.array) {
-            if (num != null) {
-                mult *= num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null) {
+                mult *= (Integer) this.array[i];
             }
         }
 
@@ -395,16 +398,161 @@ public class ArrayIvan<T> {
     private T multDouble() {
         Double mult = (double) 1;
 
-        for (Double num : (Double[]) this.array) {
-            if (num != null) {
-                mult *= num;
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] != null) {
+                mult *= (Double) this.array[i];
             }
         }
 
         return (T) mult;
     }
 
-    public T find(T element) {
+    /**
+     * @return
+     * Вернет индекс первого совпадения.
+     * String, Integer, Double, else null.
+     */
+    public Integer findAt(T element) {
+        Integer index = 0;
+
+        for (T t : this.array) {
+            if (t != null && t == element) {
+                return index;
+            }
+            index++;
+        }
+
+        return -1;
+    }
+
+    /**
+     * @return
+     * Вернет True или False.
+     * В зависимости от того содержится ли element в массиве.
+     */
+    public Boolean contains(T element) {
         
+        for (T t : this.array) {
+            if (t != null && t == element) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void removeNull() {
+        int count = 0;
+
+        for (T t : this.array) {
+            if (t == null) {
+                count++;
+            }
+        }
+
+        int newLen = this.size - count;
+        T[] newArr = (T[]) new Object[newLen];
+        int index = 0;
+
+        for (int i = 0; i < this.size; i++) {
+            if (this.array[i] != null) {
+                newArr[index] = this.array[i];
+                index++;
+            }
+        }
+
+        this.array = newArr;
+        this.size -= count;
+    }
+
+    private void toSwap(int i, int j) {
+        T temp = this.array[i];
+        this.array[i] = this.array[j];
+        this.array[j] = temp;
+    }
+
+    public void bubbleSort() throws Exception {
+        removeNull();
+        if (this.array[0] instanceof Comparable) {
+            for (int i = 0; i < this.size - 1; i++) {
+                for(int j = 0; j < this.size - i - 1; j++) {
+                    Comparable<T> elem = (Comparable) this.array[j];
+                    T nextElem = this.array[j + 1];
+
+                    if (elem.compareTo(nextElem) > 0) {
+                        toSwap(j, j + 1);
+                    }
+                }
+            }
+        } else throw new Exception("Noncomparable type");
+    }
+    
+    public void insertionSort() throws Exception {
+        removeNull();
+        if (this.array[0] instanceof Comparable) {
+            for (int i = 1; i < this.size; i++) {
+                for (int j = i; j > 0; j--) {
+                    Comparable<T> elem = (Comparable) this.array[j];
+                    T prevElem = this.array[j - 1];
+
+                    if (elem.compareTo(prevElem) < 0) {
+                        toSwap(j, j - 1);
+                    } else break;
+                }
+            }
+        } else throw new Exception("Noncomparable type");
+    }
+
+    public void selectionSort() throws Exception {
+        T min;
+        if (this.array[0] instanceof Comparable) {
+            for (int i = 0; i < this.size; i++) {
+                min = this.array[i];
+                int minInd = i;
+
+                for (int j = i; j < this.size; j++) {
+                    Comparable<T> elem = (Comparable) this.array[j];
+                    if (elem.compareTo(min) < 0) {
+                        min = this.array[j];
+                        minInd = j;
+                    }
+                }
+
+                if (i != minInd) {
+                    toSwap(i, minInd);
+                }                
+            }
+        } else throw new Exception("Noncomparable type");
+    }
+
+    public T get(int index) {
+        return this.array[index];
+    }
+
+    public void set(int index, T element) {
+        this.array[index] = element;
+    }
+
+    public int size() {
+        int count = 0;
+        for (T t : this.array) {
+            if (t == null) {
+                count++;
+            }
+        }
+        return this.size - count;
+    }
+
+    public void show() {
+        System.out.print("[");
+        for (int i = 0; i < this.size; i++) {
+            if (this.array[i] != null) {
+                if (i != this.size - 1)
+                    System.out.print(this.array[i] + ", ");
+                else
+                    System.out.print(this.array[i]);
+            }
+        }
+        System.out.print("]\n");
     }
 }
