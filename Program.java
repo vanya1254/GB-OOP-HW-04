@@ -79,7 +79,8 @@ public class Program {
         array.show();
         System.out.println(array.size());
         
-        array.removeAt(1);
+        array.removeAt();
+        // array.removeAt(5);
         array.show();
 
         array.show();

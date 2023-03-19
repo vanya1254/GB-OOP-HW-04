@@ -34,10 +34,10 @@ public class ArrayIvan<T> {
     }
     
     public void removeAt(int index) throws Exception {
-        if (index > this.size - 1 || index < 0) {
+        if (index > this.size || index < 0) {
             throw new Exception(String.format("Index %d out of range", index));
         } else {
-            int newLen = this.size - 1;
+            int newLen = this.array.length - 1;
             T[] newArr = (T[]) new Object[newLen];
 
             int i = 0;
@@ -46,8 +46,8 @@ public class ArrayIvan<T> {
                 i++;
             }
             i++;
-            while (i < this.size - 1) {
-                newArr[i] = this.array[i];
+            while (i < this.size) {
+                newArr[i - 1] = this.array[i];
                 i++;
             }
             this.array = newArr;
@@ -74,29 +74,13 @@ public class ArrayIvan<T> {
         this.size--;
     }
 
-    public void remove(T element) {
-        int count = 0;
-
-        for (T t : this.array) {
-            if (t == element) {
-                t = null;
-                count++;
+    public void remove(T element) throws Exception {
+        for (int i = 0; i < this.array.length; i++) {
+            if (this.array[i] == element) {
+                removeAt(i);
+                i--;
             }
         }
-
-        int newLen = this.size - count;
-        T[] newArr = (T[]) new Object[newLen];
-        int index = 0;
-
-        for (int i = 0; i < this.size - 1; i++) {
-            if (this.array[i] != null) {
-                newArr[index] = this.array[i];
-                index++;
-            }
-        }
-
-        this.array = newArr;
-        this.size -= count;
     }
 
     /**
@@ -441,30 +425,6 @@ public class ArrayIvan<T> {
         return false;
     }
 
-    private void removeNull() {
-        int count = 0;
-
-        for (T t : this.array) {
-            if (t == null) {
-                count++;
-            }
-        }
-
-        int newLen = this.size - count;
-        T[] newArr = (T[]) new Object[newLen];
-        int index = 0;
-
-        for (int i = 0; i < this.size; i++) {
-            if (this.array[i] != null) {
-                newArr[index] = this.array[i];
-                index++;
-            }
-        }
-
-        this.array = newArr;
-        this.size -= count;
-    }
-
     private void toSwap(int i, int j) {
         T temp = this.array[i];
         this.array[i] = this.array[j];
@@ -472,7 +432,6 @@ public class ArrayIvan<T> {
     }
 
     public void bubbleSort() throws Exception {
-        removeNull();
         if (this.array[0] instanceof Comparable) {
             for (int i = 0; i < this.size - 1; i++) {
                 for(int j = 0; j < this.size - i - 1; j++) {
@@ -488,7 +447,6 @@ public class ArrayIvan<T> {
     }
     
     public void insertionSort() throws Exception {
-        removeNull();
         if (this.array[0] instanceof Comparable) {
             for (int i = 1; i < this.size; i++) {
                 for (int j = i; j > 0; j--) {
@@ -534,24 +492,22 @@ public class ArrayIvan<T> {
     }
 
     public int size() {
-        int count = 0;
-        for (T t : this.array) {
-            if (t == null) {
-                count++;
-            }
-        }
-        return this.size - count;
+        // int count = 0;
+        // for (T t : this.array) {
+        //     if (t == null) {
+        //         count++;
+        //     }
+        // }
+        return this.size;
     }
 
     public void show() {
         System.out.print("[");
         for (int i = 0; i < this.size; i++) {
-            if (this.array[i] != null) {
-                if (i != this.size - 1)
-                    System.out.print(this.array[i] + ", ");
-                else
-                    System.out.print(this.array[i]);
-            }
+            if (i != this.size - 1)
+                System.out.print(this.array[i] + ", ");
+            else
+                System.out.print(this.array[i]);
         }
         System.out.print("]\n");
     }
